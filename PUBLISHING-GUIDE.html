@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog Setup & Publishing Guide — Lifecycle Works</title>
+<link href="https://fonts.cdnfonts.com/css/tex-gyre-termes" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/style.css"/>
+<style>
+body { max-width:800px; margin:0 auto; }
+
+.guide-cover {
+  background:var(--ink);
+  padding:3rem 3rem 2.5rem;
+  border-bottom:3px solid var(--wine);
+}
+.guide-cover-tag {
+  font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--sand); border:1px solid rgba(200,168,122,.25);
+  padding:.25rem .75rem; display:inline-block; margin-bottom:1.5rem;
+}
+.guide-cover h1 {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:2.5rem; line-height:.95;
+  letter-spacing:-.03em; color:var(--txt-light);
+}
+.guide-cover h1 em { font-style:italic; font-weight:300; color:var(--sand); display:block; }
+.guide-cover p {
+  margin-top:1rem; font-size:.88rem; line-height:1.75;
+  color:rgba(243,237,227,0.55); max-width:480px;
+}
+
+.guide-body { padding:3rem; }
+
+/* Phase headers */
+.phase {
+  margin-bottom:3rem;
+}
+.phase-label {
+  font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--wine-mid); margin-bottom:.4rem;
+  display:flex; align-items:center; gap:.6rem;
+}
+.phase-label::before { content:''; width:16px; height:1px; background:var(--wine-mid); }
+.phase-title {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.6rem; letter-spacing:-.02em;
+  color:var(--txt-dark); margin-bottom:1.5rem;
+  padding-bottom:.85rem;
+  border-bottom:1px solid var(--bdr-light);
+}
+
+/* Steps */
+.steps { display:flex; flex-direction:column; gap:0; }
+.step {
+  display:grid; grid-template-columns:42px 1fr;
+  gap:1rem; padding:1.1rem 0;
+  border-bottom:1px solid rgba(26,23,20,0.07);
+}
+.step:last-child { border-bottom:none; }
+.step-num {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.2rem;
+  color:rgba(140,61,24,.25); line-height:1.2;
+  padding-top:.1rem;
+}
+.step-content {}
+.step-title {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:.95rem;
+  color:var(--txt-dark); margin-bottom:.3rem;
+}
+.step-body {
+  font-size:.83rem; line-height:1.75;
+  color:var(--txt-mid);
+}
+.step-body strong { color:var(--txt-dark); font-weight:500; }
+.step-body code {
+  font-family:'Courier New', monospace; font-size:.8rem;
+  background:rgba(26,23,20,0.06); color:var(--wine);
+  padding:.1rem .4rem; border-radius:3px;
+}
+.step-body ul { padding-left:1.1rem; margin-top:.4rem; }
+.step-body li { margin-bottom:.25rem; font-size:.82rem; color:var(--txt-mid); line-height:1.65; }
+.step-body li strong { color:var(--txt-dark); font-weight:500; }
+
+/* Note box */
+.note {
+  background:var(--cream2);
+  border-left:2px solid var(--wine-mid);
+  padding:.85rem 1.1rem;
+  margin:.75rem 0;
+  font-size:.8rem; line-height:1.7;
+  color:var(--txt-mid);
+}
+.note strong { color:var(--wine); font-weight:600; }
+
+/* Code block */
+.code-block {
+  background:var(--ink);
+  padding:1rem 1.25rem;
+  margin:.75rem 0;
+  font-family:'Courier New', monospace;
+  font-size:.78rem; line-height:1.8;
+  color:rgba(243,237,227,0.75);
+  overflow-x:auto;
+}
+.code-block .c-comment { color:rgba(200,168,122,0.5); }
+.code-block .c-key { color:var(--wine-lit); }
+.code-block .c-val { color:var(--sand); }
+
+/* Weekly checklist */
+.weekly-check {
+  display:flex; flex-direction:column; gap:0;
+  border:1px solid var(--bdr-light);
+  margin-top:1.25rem;
+}
+.wc-item {
+  display:grid; grid-template-columns:32px 1fr auto;
+  align-items:start; gap:.85rem;
+  padding:.85rem 1.1rem;
+  border-bottom:1px solid var(--bdr-light);
+  transition:background .15s; cursor:default;
+}
+.wc-item:last-child { border-bottom:none; }
+.wc-item:hover { background:var(--cream2); }
+.wc-box {
+  width:16px; height:16px; margin-top:.15rem;
+  border:1.5px solid var(--bdr-light);
+  flex-shrink:0; cursor:pointer;
+  transition:all .15s;
+}
+.wc-box.checked { background:var(--wine); border-color:var(--wine); }
+.wc-text { font-size:.83rem; line-height:1.65; color:var(--txt-mid); }
+.wc-text strong { color:var(--txt-dark); font-weight:500; }
+.wc-badge {
+  font-size:.52rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; padding:.2rem .55rem;
+  white-space:nowrap; align-self:start; margin-top:.15rem;
+}
+.wc-badge--write  { background:rgba(140,61,24,.08); color:var(--wine-mid); }
+.wc-badge--code   { background:rgba(26,23,20,.06); color:var(--txt-soft); }
+.wc-badge--deploy { background:rgba(200,168,122,.15); color:#8a6a3a; }
+.wc-badge--share  { background:rgba(0,100,80,.07); color:#2a6b58; }
+
+/* File tree */
+.file-tree {
+  background:var(--ink);
+  padding:1.25rem 1.5rem;
+  margin:.75rem 0;
+  font-family:'Courier New', monospace;
+  font-size:.8rem; line-height:2;
+  color:rgba(243,237,227,0.65);
+}
+.file-tree .dir { color:var(--sand); font-weight:700; }
+.file-tree .file-new { color:var(--wine-lit); }
+.file-tree .file-edit { color:rgba(243,237,227,0.4); }
+
+@media(max-width:640px){
+  .guide-cover { padding:2.5rem 1.25rem; }
+  .guide-cover h1 { font-size:1.9rem; }
+  .guide-body { padding:2rem 1.25rem; }
+  .step { grid-template-columns:32px 1fr; }
+  .step-num { font-size:1rem; }
+  .wc-item { grid-template-columns:24px 1fr; }
+  .wc-badge { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <a class="nav-logo" href="index.html">LIFECYCLE <span>WORKS</span> <em>Blog</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html">All Posts</a></li>
+  </ul>
+  <a href="https://lifecycleworks.com" class="nav-cta" target="_blank">Main Site →</a>
+</nav>
+
+<!-- ── COVER ── -->
+<div class="guide-cover">
+  <div class="guide-cover-tag">Internal Reference · Keep this file</div>
+  <h1>Blog Setup &amp;<br><em>Publishing Guide.</em></h1>
+  <p>Your complete step-by-step for deploying the blog to Netlify, setting up the subdomain, and adding new posts every week.</p>
+</div>
+
+<div class="guide-body">
+
+  <!-- ════════════════════════════
+       PHASE 1: FIRST TIME SETUP
+  ════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-label">Phase 1 · One time only</div>
+    <div class="phase-title">Deploy the Blog to Netlify</div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Create a GitHub repository</div>
+          <div class="step-body">
+            Go to <strong>github.com</strong> → New repository → name it <code>lw-blog</code> → set to Public → Create.
+            <div class="note"><strong>Why GitHub?</strong> Netlify deploys automatically every time you push new files to GitHub. No manual uploading needed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Upload your blog files to the repo</div>
+          <div class="step-body">
+            In GitHub, click <strong>Add file → Upload files</strong>. Upload the entire folder structure:
+            <div class="file-tree">
+<span class="dir">lw-blog/</span><br>
+├── <span class="file-new">index.html</span><br>
+├── <span class="dir">articles/</span><br>
+│   └── <span class="file-new">TEMPLATE.html</span><br>
+├── <span class="dir">guides/</span><br>
+│   └── <span class="file-new">ai-tools-for-marketers.html</span><br>
+└── <span class="dir">assets/</span><br>
+    └── <span class="file-new">style.css</span>
+            </div>
+            Commit message: <code>Initial blog setup</code> → Commit changes.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Connect the repo to Netlify</div>
+          <div class="step-body">
+            <ul>
+              <li>Go to <strong>netlify.com</strong> → Log in → <strong>Add new site → Import an existing project</strong></li>
+              <li>Choose <strong>GitHub</strong> → Authorize → Select <code>lw-blog</code></li>
+              <li>Build settings: leave blank (no build command, publish directory is <code>/</code> or leave empty)</li>
+              <li>Click <strong>Deploy site</strong></li>
+            </ul>
+            Netlify will give you a random URL like <code>magical-panda-123.netlify.app</code> — your blog is live.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Set up the subdomain: blog.lifecycleworks.com</div>
+          <div class="step-body">
+            <strong>In Netlify (new blog site):</strong>
+            <ul>
+              <li>Site settings → Domain management → Add custom domain</li>
+              <li>Type <code>blog.lifecycleworks.com</code> → Verify → Add domain</li>
+              <li>Netlify will show you a CNAME record to add — copy it</li>
+            </ul>
+            <strong>In your DNS (where lifecycleworks.com is managed — likely Netlify DNS already):</strong>
+            <ul>
+              <li>Go to your <em>main</em> Netlify site → Domain settings → DNS settings</li>
+              <li>Add a new record: <strong>Type:</strong> CNAME · <strong>Name:</strong> <code>blog</code> · <strong>Value:</strong> paste the value Netlify gave you</li>
+              <li>Save. DNS propagation takes 5–60 minutes.</li>
+            </ul>
+            <div class="note"><strong>Already using Netlify DNS for lifecycleworks.com?</strong> Great — go to your Netlify team DNS panel, add the CNAME record for <code>blog</code> pointing to your new blog site's Netlify URL.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Enable HTTPS</div>
+          <div class="step-body">
+            In the new blog Netlify site → Domain management → HTTPS → Click <strong>Verify DNS configuration</strong> → then <strong>Provision certificate</strong>.
+            This is free via Let's Encrypt and takes 1–2 minutes after DNS propagates.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Test everything</div>
+          <div class="step-body">
+            Open <code>blog.lifecycleworks.com</code> in your browser. Check:
+            <ul>
+              <li>Index page loads with your branding</li>
+              <li>Filter buttons (All / Articles / Guides) work</li>
+              <li>Post card links open the correct pages</li>
+              <li>Nav "Main Site →" links back to lifecycleworks.com</li>
+              <li>Looks correct on mobile</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       PHASE 2: EVERY NEW POST
+  ════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-label">Phase 2 · Every week</div>
+    <div class="phase-title">Publishing a New Post</div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Duplicate the template file</div>
+          <div class="step-body">
+            Copy <code>articles/TEMPLATE.html</code> (or <code>guides/TEMPLATE.html</code> for guides).
+            Rename it using a URL-friendly slug — no spaces, all lowercase, hyphens between words:
+            <div class="code-block">
+<span class="c-comment">// Articles</span><br>
+<span class="c-val">articles/how-to-build-a-nurture-flow.html</span><br>
+<span class="c-val">articles/crm-audit-checklist.html</span><br><br>
+<span class="c-comment">// Guides</span><br>
+<span class="c-val">guides/hubspot-workflow-guide.html</span><br>
+<span class="c-val">guides/email-segmentation-starter-kit.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Fill in the 3 marked sections</div>
+          <div class="step-body">
+            The template has three clearly marked sections — look for the <code>STEP 1 / 2 / 3</code> comments:
+            <ul>
+              <li><strong>Step 1</strong> — Update <code>&lt;title&gt;</code> and <code>&lt;meta name="description"&gt;</code></li>
+              <li><strong>Step 2</strong> — Update the cover: title, deck, date, read time, article vs guide tag</li>
+              <li><strong>Step 3</strong> — Write your post content between the <code>&lt;div class="post-body"&gt;</code> tags</li>
+            </ul>
+            <div class="note"><strong>Available content blocks inside post-body:</strong> <code>&lt;h2&gt;</code> section headings · <code>&lt;p&gt;</code> paragraphs · <code>&lt;blockquote&gt;</code> pull quotes · <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> lists · <code>&lt;div class="callout-box"&gt;</code> highlight boxes · <code>&lt;div class="post-divider"&gt;</code> visual breaks.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Add a card to index.html</div>
+          <div class="step-body">
+            Open <code>index.html</code>. Find the <code>&lt;!-- FEATURED --&gt;</code> comment and the existing cards.
+            Copy one of the <code>&lt;a class="post-card"&gt;</code> blocks and paste it after the featured card. Update:
+            <div class="code-block">
+<span class="c-comment">// 1. Update the href to your new file</span><br>
+<span class="c-key">href=</span><span class="c-val">"articles/your-new-post.html"</span><br><br>
+<span class="c-comment">// 2. Set the type for filtering</span><br>
+<span class="c-key">data-type=</span><span class="c-val">"article"</span>  <span class="c-comment">← or "guide"</span><br><br>
+<span class="c-comment">// 3. Update inside the card</span><br>
+<span class="c-key">tag:</span>       <span class="c-val">Article or Guide</span><br>
+<span class="c-key">date:</span>      <span class="c-val">Month Year</span><br>
+<span class="c-key">title:</span>     <span class="c-val">Your post title</span><br>
+<span class="c-key">excerpt:</span>   <span class="c-val">2–3 sentence teaser</span><br>
+<span class="c-key">read-time:</span> <span class="c-val">X min read</span>
+            </div>
+            <div class="note"><strong>Make the newest post the featured card</strong> (full-width, top of grid) by moving it to the top and adding the class <code>post-card--featured</code>. Demote the previous featured card to a regular card by removing that class.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Upload to GitHub → Netlify auto-deploys</div>
+          <div class="step-body">
+            Go to your <code>lw-blog</code> GitHub repo:
+            <ul>
+              <li>Navigate to the correct folder (<code>articles/</code> or <code>guides/</code>)</li>
+              <li>Click <strong>Add file → Upload files</strong> → Upload your new HTML file</li>
+              <li>Commit: <code>Add: [post title]</code></li>
+              <li>Go back to root → click <code>index.html</code> → click pencil (edit) → paste updated index → Commit</li>
+            </ul>
+            Netlify detects the push and redeploys automatically. Your post is live in under 60 seconds.
+            <div class="note"><strong>Optional but recommended:</strong> Install the GitHub desktop app or use VS Code with Git for a smoother workflow — drag files in instead of uploading through the browser.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Update the filter count (optional)</div>
+          <div class="step-body">
+            The filter count updates automatically via JavaScript. No action needed — it counts visible cards on the fly.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       PHASE 3: WEEKLY CHECKLIST
+  ════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-label">Phase 3 · Weekly rhythm</div>
+    <div class="phase-title">Your Weekly Publishing Checklist</div>
+    <p style="font-size:.85rem;line-height:1.75;color:var(--txt-mid);margin-bottom:1rem;">
+      Click each item to check it off as you go.
+    </p>
+    <div class="weekly-check">
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Write the post.</strong> Draft in Claude, Google Doc, or Notion — wherever you think best. Don't write in HTML first.</div>
+        <span class="wc-badge wc-badge--write">Write</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Duplicate TEMPLATE.html</strong> and rename with a clean slug (e.g. <code>crm-audit-guide.html</code>).</div>
+        <span class="wc-badge wc-badge--code">File</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Fill in Step 1:</strong> Update the page <code>&lt;title&gt;</code> and meta description.</div>
+        <span class="wc-badge wc-badge--code">HTML</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Fill in Step 2:</strong> Cover title, deck sentence, date, read time, article/guide tag.</div>
+        <span class="wc-badge wc-badge--code">HTML</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Fill in Step 3:</strong> Paste your content into <code>post-body</code> using the available elements (h2, p, blockquote, callout-box, etc.).</div>
+        <span class="wc-badge wc-badge--code">HTML</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Open the file locally in your browser.</strong> Read it top to bottom. Check mobile by resizing the window.</div>
+        <span class="wc-badge wc-badge--code">QA</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Update index.html</strong> — add the new post card, promote it to featured if it's the latest, update date and excerpt.</div>
+        <span class="wc-badge wc-badge--code">HTML</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Upload both files to GitHub</strong> — the new post file and the updated index.html. Commit with message: <code>Add: [post title]</code>.</div>
+        <span class="wc-badge wc-badge--deploy">Deploy</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Check Netlify deploy log</strong> — should say "Published" within 60 seconds. Open <code>blog.lifecycleworks.com</code> and confirm the new post appears.</div>
+        <span class="wc-badge wc-badge--deploy">Deploy</span>
+      </div>
+      <div class="wc-item">
+        <div class="wc-box" onclick="this.classList.toggle('checked')"></div>
+        <div class="wc-text"><strong>Share on LinkedIn.</strong> Post the article/guide with your "comment to get the link" CTA. Drop the actual URL in the first comment.</div>
+        <span class="wc-badge wc-badge--share">Share</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       QUICK REFERENCE
+  ════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-label">Quick Reference</div>
+    <div class="phase-title">File Naming Conventions</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">Always use lowercase + hyphens for filenames</div>
+          <div class="step-body">
+            <div class="code-block">
+<span class="c-comment">✓ Good</span><br>
+<span class="c-val">articles/will-ai-replace-marketers.html</span><br>
+<span class="c-val">guides/hubspot-onboarding-checklist.html</span><br><br>
+<span class="c-comment">✗ Avoid</span><br>
+<span class="c-val">articles/Will AI Replace Marketers.html</span><br>
+<span class="c-val">guides/HubSpot_Onboarding.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">Path for assets is always relative</div>
+          <div class="step-body">
+            Files inside <code>/articles/</code> or <code>/guides/</code> link to the stylesheet with <code>../assets/style.css</code> (two dots = go up one level). The index page uses <code>assets/style.css</code> (no dots, same level).
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">Article vs Guide — what's the difference</div>
+          <div class="step-body">
+            <ul>
+              <li><strong>Article</strong> — opinion, perspective, story-driven. 400–900 words. Goes in <code>/articles/</code>. Use <code>data-type="article"</code> and <code>tag--article</code> / <code>tag--dark-article</code>.</li>
+              <li><strong>Guide</strong> — how-to, framework, checklist, resource. 600–1500 words. Goes in <code>/guides/</code>. Use <code>data-type="guide"</code> and <code>tag--guide</code> / <code>tag--dark-guide</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end guide-body -->
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-sig">LIFECYCLE <span>WORKS</span> · Internal Reference</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Back to Blog</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

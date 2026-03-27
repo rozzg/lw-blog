@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — Lifecycle Works by Roz</title>
+<meta name="description" content="Articles and guides on B2B lifecycle marketing, CRM ops, and marketing automation by Roz Gonzalez."/>
+<link href="https://fonts.cdnfonts.com/css/tex-gyre-termes" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/style.css"/>
+<style>
+
+/* ── HERO ── */
+.blog-hero {
+  background:var(--ink);
+  padding:4rem 3rem 3.5rem;
+  position:relative; overflow:hidden;
+  border-bottom:3px solid var(--wine);
+}
+.blog-hero::after {
+  content:'';
+  position:absolute; bottom:-80px; right:-80px;
+  width:300px; height:300px; border-radius:50%;
+  border:1px solid rgba(200,168,122,0.06);
+  pointer-events:none;
+}
+.blog-hero-eyebrow {
+  opacity:0; animation:fadeUp .5s ease .1s forwards;
+  margin-bottom:1.5rem;
+}
+.blog-hero-title {
+  opacity:0; animation:fadeUp .6s ease .2s forwards;
+  margin-bottom:1rem;
+}
+.blog-hero-sub {
+  font-size:.92rem; line-height:1.85;
+  color:rgba(243,237,227,0.6); max-width:480px;
+  opacity:0; animation:fadeUp .6s ease .35s forwards;
+}
+.blog-hero-sub strong { color:var(--txt-light); font-weight:400; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  background:var(--ink2);
+  border-bottom:1px solid var(--bdr-dark);
+  padding:.85rem 3rem;
+  display:flex; gap:1rem; align-items:center;
+  position:sticky; top:54px; z-index:90;
+}
+.filter-btn {
+  font-family:'Helvetica World', Helvetica, Arial, sans-serif;
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  padding:.45rem 1rem;
+  border:1px solid rgba(243,237,227,0.12);
+  background:transparent; color:rgba(243,237,227,0.4);
+  cursor:pointer; transition:all .2s;
+}
+.filter-btn:hover { border-color:var(--sand); color:var(--sand); }
+.filter-btn.active {
+  background:var(--wine); border-color:var(--wine);
+  color:#fff;
+}
+.filter-count {
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.08em;
+  color:rgba(243,237,227,0.2);
+  margin-left:auto;
+}
+
+/* ── POST GRID ── */
+.posts-section {
+  padding:3rem 3rem 4rem;
+  background:var(--cream);
+}
+.posts-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.5rem;
+  margin-top:2rem;
+}
+
+/* ── POST CARD ── */
+.post-card {
+  background:white;
+  border:1px solid var(--bdr-light);
+  display:flex; flex-direction:column;
+  transition:all .25s;
+  cursor:pointer;
+  text-decoration:none;
+  position:relative; overflow:hidden;
+}
+.post-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background:var(--wine);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .3s ease;
+}
+.post-card:hover { border-color:rgba(140,61,24,.2); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,0,0,.08); }
+.post-card:hover::before { transform:scaleX(1); }
+
+.card-body { padding:1.75rem 1.75rem 1.25rem; flex:1; }
+.card-meta {
+  display:flex; align-items:center; gap:.75rem;
+  margin-bottom:1rem;
+}
+.card-date {
+  font-size:.58rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--txt-soft);
+}
+.card-title {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.15rem;
+  line-height:1.2; letter-spacing:-.01em;
+  color:var(--txt-dark); margin-bottom:.65rem;
+  transition:color .2s;
+}
+.post-card:hover .card-title { color:var(--wine); }
+.card-excerpt {
+  font-size:.82rem; line-height:1.75;
+  color:var(--txt-mid);
+}
+.card-footer {
+  padding:.85rem 1.75rem;
+  border-top:1px solid var(--bdr-light);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.card-read {
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--wine-mid);
+  display:flex; align-items:center; gap:.4rem;
+  transition:gap .2s;
+}
+.post-card:hover .card-read { gap:.7rem; }
+.card-read-time {
+  font-size:.58rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--txt-soft);
+}
+
+/* ── FEATURED POST (full width) ── */
+.post-card--featured {
+  grid-column:1/-1;
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.post-card--featured .card-body { padding:2.25rem 2.5rem 2rem; }
+.post-card--featured .card-title { font-size:1.5rem; }
+.post-card--featured .card-footer { border-top:none; border-left:1px solid var(--bdr-light); padding:2.25rem 2.5rem; flex-direction:column; align-items:flex-start; justify-content:flex-end; background:var(--cream2); }
+.post-card--featured .card-excerpt { max-width:420px; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  grid-column:1/-1;
+  text-align:center; padding:4rem 2rem;
+  color:var(--txt-soft);
+  font-size:.85rem;
+  display:none;
+}
+.empty-state.visible { display:block; }
+
+/* ── SECTION DIVIDER ── */
+.section-rule {
+  display:flex; align-items:center; gap:1rem;
+  margin-bottom:1.75rem;
+}
+.section-rule-label {
+  font-family:'Helvetica World',Helvetica,Arial,sans-serif;
+  font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--txt-soft); white-space:nowrap;
+}
+.section-rule-line {
+  flex:1; height:1px; background:var(--bdr-light);
+}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .blog-hero { padding:3rem 1.25rem 2.5rem; }
+  .filter-bar { padding:.75rem 1.25rem; gap:.5rem; top:54px; overflow-x:auto; }
+  .filter-btn { font-size:.56rem; padding:.38rem .85rem; white-space:nowrap; }
+  .posts-section { padding:2rem 1.25rem 3rem; }
+  .posts-grid { grid-template-columns:1fr; gap:1rem; }
+  .post-card--featured { grid-template-columns:1fr; }
+  .post-card--featured .card-footer { border-left:none; border-top:1px solid var(--bdr-light); }
+}
+.footer-cta {
+  font-family:'Helvetica World',Helvetica,Arial,sans-serif;
+  font-size:.62rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink); background:var(--sand);
+  padding:.45rem 1.25rem;
+  transition:all .2s; white-space:nowrap;
+}
+.footer-cta:hover { background:var(--wine-lit); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <a class="nav-logo" href="index.html">LIFECYCLE <span>WORKS</span> <em>Blog</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">All Posts</a></li>
+    <li><a href="#">Articles</a></li>
+    <li><a href="#">Guides</a></li>
+  </ul>
+  <a href="https://lifecycleworks.com" class="nav-cta" target="_blank">Home →</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="blog-hero">
+  <div class="blog-hero-eyebrow">
+    <span class="t-label t-label--light">Lifecycle Works by Roz</span>
+  </div>
+  <h1 class="t-display t-display--xl t-display--on-dark blog-hero-title">
+    B2B Marketing<br><em>That Actually Works.</em>
+  </h1>
+  <p class="blog-hero-sub">
+    Practical articles and guides on <strong>lifecycle marketing, CRM ops, and marketing automation</strong> — written by a practitioner, for practitioners.
+  </p>
+</div>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="article">Articles</button>
+  <button class="filter-btn" data-filter="guide">Guides</button>
+  <span class="filter-count" id="post-count">2 posts</span>
+</div>
+
+<!-- ── POSTS ── -->
+<div class="posts-section">
+  <div class="section-rule">
+    <span class="section-rule-label">Latest</span>
+    <span class="section-rule-line"></span>
+  </div>
+
+  <div class="posts-grid" id="posts-grid">
+
+    <!-- FEATURED: Article 1 -->
+    <a class="post-card post-card--featured" href="articles/will-ai-replace-marketers.html" data-type="article">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="tag tag--article">Article</span>
+          <span class="card-date">March 2026</span>
+        </div>
+        <div class="card-title">Will AI Really Replace Marketers? Here's What I Actually Think</div>
+        <p class="card-excerpt">Every few years, something shows up that's supposed to kill marketing as a profession. This time, people actually believe it. They're not entirely wrong. But they're not asking the right question either.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-read">Read Article →</span>
+        <span class="card-read-time">4 min read</span>
+      </div>
+    </a>
+
+    <!-- Guide 1 -->
+    <a class="post-card" href="guides/ai-tools-for-marketers.html" data-type="guide">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="tag tag--guide">Guide</span>
+          <span class="card-date">March 2026</span>
+        </div>
+        <div class="card-title">The Marketer's Starter Kit for AI Tools</div>
+        <p class="card-excerpt">Where to start, what to actually use, and how to build confidence without the overwhelm. A practical framework plus a 5-step checklist to get moving this week.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-read">Read Guide →</span>
+        <span class="card-read-time">6 min read</span>
+      </div>
+    </a>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state">No posts in this category yet.</div>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-sig">LIFECYCLE <span>WORKS</span> · By Roz Gonzalez</div>
+  <ul class="footer-links">
+    <li><a href="https://lifecycleworks.com" target="_blank">Home</a></li>
+    <li><a href="https://linkedin.com/in/rozzgonzalez" target="_blank">LinkedIn</a></li>
+  </ul>
+  <a href="https://calendly.com/rozzanagonzalez/15min" target="_blank" class="footer-cta">Book a Call</a>
+</footer>
+
+<script>
+// ── Filter logic ──
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.post-card');
+const countEl = document.getElementById('post-count');
+const emptyEl = document.getElementById('empty-state');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let visible = 0;
+    cards.forEach(card => {
+      const show = filter === 'all' || card.dataset.type === filter;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = visible + (visible === 1 ? ' post' : ' posts');
+    emptyEl.classList.toggle('visible', visible === 0);
+  });
+});
+</script>
+</body>
+</html>
