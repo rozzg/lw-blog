@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Marketer's Starter Kit for AI Tools — Lifecycle Works by Roz</title>
+<link href="https://fonts.cdnfonts.com/css/tex-gyre-termes" rel="stylesheet"/>
+<style>
+@font-face {
+  font-family: 'Helvetica World';
+  src: local('Helvetica World'), local('HelveticaWorld'), local('Helvetica World Regular');
+  font-weight: 300 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica World';
+  src: local('Helvetica World Italic'), local('HelveticaWorld-Italic');
+  font-weight: 300 800;
+  font-style: italic;
+}
+
+:root {
+  --ink:      #0f0d0b;
+  --ink2:     #1a1714;
+  --cream:    #f3ede3;
+  --cream2:   #ebe4d8;
+  --cream3:   #e0d8ca;
+  --wine:     #8c3d18;
+  --wine-mid: #c4622d;
+  --wine-lit: #e07a52;
+  --sand:     #c8a87a;
+  --txt-dark: #1a1714;
+  --txt-mid:  #5a5248;
+  --txt-soft: #8a8278;
+  --txt-light:#f3ede3;
+  --txt-dim:  rgba(243,237,227,0.5);
+  --bdr-light: rgba(26,23,20,0.1);
+  --bdr-dark:  rgba(243,237,227,0.1);
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--cream);
+  color:var(--txt-dark);
+  font-family:'Helvetica World', Helvetica, Arial, sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  max-width:780px;
+  margin:0 auto;
+}
+
+/* ── COVER ── */
+.cover {
+  background:var(--ink);
+  padding:3.5rem 3rem 3rem;
+  position:relative;
+  overflow:hidden;
+  border-bottom:3px solid var(--wine);
+}
+.cover::before {
+  content:'';
+  position:absolute;
+  bottom:-60px; right:-60px;
+  width:260px; height:260px;
+  border-radius:50%;
+  border:1px solid rgba(200,168,122,0.08);
+}
+.cover::after {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:var(--wine);
+}
+.cover-eyebrow {
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--sand);
+  border:1px solid rgba(200,168,122,0.25);
+  padding:.28rem .85rem;
+  display:inline-block;
+  margin-bottom:2rem;
+  opacity:0; animation:fadeUp .5s ease .1s forwards;
+}
+.cover-title {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800;
+  font-size:clamp(2.8rem,6vw,4.5rem);
+  line-height:.93;
+  letter-spacing:-.03em;
+  color:var(--txt-light);
+  margin-bottom:1.25rem;
+  opacity:0; animation:fadeUp .6s ease .2s forwards;
+}
+.cover-title em {
+  font-style:italic; font-weight:300;
+  color:var(--sand); display:block;
+}
+.cover-rule {
+  width:36px; height:2px;
+  background:var(--wine-lit);
+  margin:1.5rem 0;
+  opacity:0; animation:fadeIn .5s ease .4s forwards;
+}
+.cover-sub {
+  font-size:.92rem; line-height:1.85;
+  color:rgba(243,237,227,0.75);
+  max-width:480px;
+  opacity:0; animation:fadeUp .6s ease .45s forwards;
+}
+.cover-sub strong { color:var(--txt-light); font-weight:500; }
+.cover-meta {
+  margin-top:2.5rem;
+  display:flex; align-items:center; gap:1.5rem;
+  opacity:0; animation:fadeUp .5s ease .6s forwards;
+}
+.cover-meta-name {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:.85rem;
+  color:rgba(243,237,227,0.35);
+  letter-spacing:.08em; text-transform:uppercase;
+}
+.cover-meta-name span { color:var(--sand); }
+.cover-meta-url {
+  font-size:.7rem; letter-spacing:.1em;
+  color:rgba(243,237,227,0.2); text-transform:uppercase;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding:3rem 3rem;
+  border-bottom:1px solid var(--bdr-light);
+}
+.section--dark {
+  background:var(--ink2);
+  border-bottom:1px solid var(--bdr-dark);
+}
+.section--cream2 { background:var(--cream2); }
+.section--cream3 { background:var(--cream3); }
+
+/* ── SECTION LABELS ── */
+.t-label {
+  font-family:'Helvetica World',Helvetica,Arial,sans-serif;
+  font-weight:600; font-size:.58rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  display:flex; align-items:center; gap:.75rem;
+  margin-bottom:1.25rem;
+}
+.t-label::before { content:''; width:20px; height:1px; flex-shrink:0; }
+.t-label--dark  { color:var(--wine-mid); }
+.t-label--dark::before  { background:var(--wine-mid); }
+.t-label--light { color:var(--sand); }
+.t-label--light::before { background:var(--sand); }
+
+/* ── DISPLAY HEADINGS ── */
+.t-display {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; line-height:.95;
+  letter-spacing:-.03em;
+}
+.t-display em { font-style:italic; font-weight:300; }
+.t-display--on-dark { color:var(--txt-light); }
+.t-display--on-dark em { color:var(--sand); }
+.t-display--on-light { color:var(--txt-dark); }
+.t-display--on-light em { color:var(--wine); }
+.t-display--lg { font-size:clamp(2rem,4vw,3rem); }
+.t-display--md { font-size:clamp(1.5rem,3vw,2rem); }
+
+/* ── INTRO ── */
+.intro-body {
+  font-size:.95rem; line-height:1.9;
+  color:rgba(243,237,227,0.75);
+  max-width:580px;
+  margin-top:1rem;
+}
+.intro-body strong { color:var(--txt-light); font-weight:500; }
+
+/* ── FRAMEWORK ── */
+.framework-grid {
+  margin-top:1.75rem;
+  display:flex; flex-direction:column;
+  gap:1px;
+  border:1px solid var(--bdr-light);
+}
+.framework-row {
+  display:grid;
+  grid-template-columns:80px 120px 1fr;
+  background:white;
+  transition:background .2s;
+  cursor:default;
+}
+.framework-row:hover { background:var(--cream2); }
+.framework-num {
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.6rem;
+  color:var(--sand); letter-spacing:-.02em;
+}
+.framework-label {
+  padding:1.25rem 1rem;
+  border-right:1px solid var(--bdr-light);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.framework-tag {
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--wine-mid); margin-bottom:.3rem;
+}
+.framework-name {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.1rem;
+  color:var(--txt-dark); line-height:1.1;
+}
+.framework-desc {
+  padding:1.25rem 1.25rem;
+  font-size:.85rem; line-height:1.75;
+  color:var(--txt-dark);
+  display:flex; align-items:center;
+}
+
+/* ── TOOLS ── */
+.tools-category { margin-bottom:2.25rem; }
+.tools-category:last-child { margin-bottom:0; }
+.tools-cat-head {
+  display:flex; align-items:center; gap:.75rem;
+  margin-bottom:1rem;
+  padding-bottom:.65rem;
+  border-bottom:1px solid var(--bdr-dark);
+}
+.tools-cat-icon {
+  width:28px; height:28px; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; flex-shrink:0;
+}
+.ic-wine  { background:rgba(200,168,122,.15); }
+.ic-sand  { background:rgba(200,168,122,.12); }
+.ic-teal  { background:rgba(243,237,227,.08); }
+.ic-ink   { background:rgba(243,237,227,.07); }
+.tools-cat-name {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:1rem;
+  color:var(--txt-light);
+}
+.tool-list {
+  display:flex; flex-direction:column; gap:0;
+}
+.tool-item {
+  display:grid; grid-template-columns:140px 1fr;
+  gap:1rem; padding:.7rem 0;
+  border-bottom:1px solid rgba(243,237,227,0.08);
+  transition:padding-left .2s;
+  cursor:default;
+}
+.tool-item:last-child { border-bottom:none; }
+.tool-item:hover { padding-left:.5rem; }
+.tool-name {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:.92rem;
+  color:var(--txt-light); padding-top:.05rem;
+}
+.tool-desc {
+  font-size:.82rem; line-height:1.65;
+  color:rgba(243,237,227,0.72);
+}
+
+/* ── CHECKLIST ── */
+.checklist { margin-top:1.5rem; display:flex; flex-direction:column; }
+.check-item {
+  display:grid; grid-template-columns:44px 1fr;
+  gap:1rem;
+  padding:1rem 0;
+  border-bottom:1px solid var(--bdr-dark);
+  cursor:default;
+  transition:padding-left .2s;
+}
+.check-item:first-child { border-top:1px solid var(--bdr-dark); }
+.check-item:hover { padding-left:.4rem; }
+.check-num {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:800; font-size:1.5rem;
+  color:var(--sand); line-height:1;
+  padding-top:.1rem;
+}
+.check-body {}
+.check-title {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:.95rem;
+  color:var(--txt-light); margin-bottom:.2rem;
+}
+.check-text {
+  font-size:.82rem; line-height:1.65;
+  color:rgba(243,237,227,0.75);
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background:var(--ink);
+  border-left:3px solid var(--wine-lit);
+  padding:2rem 2.25rem;
+  margin-top:2.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.callout::after {
+  content:'❝';
+  position:absolute; bottom:-10px; right:1.5rem;
+  font-size:5rem; color:rgba(200,168,122,.06);
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  line-height:1;
+}
+.callout-text {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:1.15rem;
+  line-height:1.5; color:var(--txt-light);
+  letter-spacing:-.01em;
+}
+.callout-text em { font-style:italic; font-weight:300; color:var(--sand); }
+
+/* ── FOOTER ── */
+.guide-footer {
+  background:var(--ink);
+  border-top:3px solid var(--wine);
+  padding:2rem 3rem;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-sig {
+  font-family:'TeX Gyre Termes','Times New Roman',serif;
+  font-weight:700; font-size:.8rem;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(243,237,227,0.25);
+}
+.footer-sig span { color:var(--sand); }
+.footer-url {
+  font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(243,237,227,0.2);
+}
+
+/* ── PRINT ── */
+@media print {
+  body { max-width:100%; }
+  .section { break-inside:avoid; }
+}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .cover { padding:2.5rem 1.5rem 2.5rem; }
+  .section { padding:2.25rem 1.5rem; }
+  .framework-row { grid-template-columns:56px 100px 1fr; }
+  .framework-num { font-size:1.2rem; }
+  .framework-name { font-size:.95rem; }
+  .framework-desc { font-size:.78rem; padding:1rem; }
+  .tool-item { grid-template-columns:1fr; gap:.2rem; }
+  .tool-name { font-size:.88rem; }
+  .guide-footer { flex-direction:column; gap:.75rem; text-align:center; padding:1.5rem; }
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<div class="cover">
+  <div class="cover-eyebrow">Free Guide · Lifecycle Works by Roz</div>
+  <h1 class="cover-title">The Marketer's<br>Starter Kit for<br><em>AI Tools.</em></h1>
+  <div class="cover-rule"></div>
+  <p class="cover-sub">Where to start, <strong>what to actually use</strong>, and how to build confidence without the overwhelm.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-name">ROZ <span>GONZALEZ</span></div>
+    <div class="cover-meta-url">lifecycleworks.com</div>
+  </div>
+</div>
+
+<!-- ── INTRO ── -->
+<div class="section section--dark">
+  <div class="t-label t-label--light">Where do I even start?</div>
+  <p class="intro-body">
+    That's the question most marketers are sitting with right now. Not whether AI is useful — that part is obvious.
+    But <strong>where to actually begin</strong> without wasting time on tools that don't stick.
+  </p>
+  <p class="intro-body" style="margin-top:1rem;">
+    This guide cuts through the noise. It's not a full directory of every AI tool on the market. It's a
+    <strong>practical starting point</strong> — organised by what you actually need to do as a marketer,
+    with a simple framework to help you build from there.
+  </p>
+</div>
+
+<!-- ── FRAMEWORK ── -->
+<div class="section section--cream2">
+  <div class="t-label t-label--dark">Step 1</div>
+  <h2 class="t-display t-display--lg t-display--on-light">The 3-Layer<br><em>Framework.</em></h2>
+  <p style="margin-top:1rem;font-size:.88rem;line-height:1.75;color:var(--txt-mid);max-width:520px;">
+    Before you download anything, understand where AI fits in your work. Think in three layers:
+  </p>
+  <div class="framework-grid">
+    <div class="framework-row">
+      <div class="framework-num">1</div>
+      <div class="framework-label">
+        <div class="framework-tag">Layer One</div>
+        <div class="framework-name">Create</div>
+      </div>
+      <div class="framework-desc">Content, copy, visuals, first drafts. AI does the heavy lifting on output so you can focus on strategy and judgment.</div>
+    </div>
+    <div class="framework-row">
+      <div class="framework-num">2</div>
+      <div class="framework-label">
+        <div class="framework-tag">Layer Two</div>
+        <div class="framework-name">Analyse</div>
+      </div>
+      <div class="framework-desc">Data, audience insights, performance patterns. AI processes what you'd miss at human speed — and surfaces what matters.</div>
+    </div>
+    <div class="framework-row">
+      <div class="framework-num">3</div>
+      <div class="framework-label">
+        <div class="framework-tag">Layer Three</div>
+        <div class="framework-name">Automate</div>
+      </div>
+      <div class="framework-desc">Sequences, workflows, repetitive tasks. AI runs the machine while you direct it — not the other way around.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOOLS ── -->
+<div class="section section--dark">
+  <div class="t-label t-label--light">Step 2</div>
+  <h2 class="t-display t-display--lg t-display--on-dark">Tools Worth<br><em>Starting With.</em></h2>
+  <p style="margin-top:1rem;font-size:.88rem;line-height:1.75;color:rgba(243,237,227,0.72);max-width:520px;margin-bottom:2rem;">
+    These aren't the only tools out there. They're the ones with the lowest learning curve and the highest immediate payoff for marketers.
+  </p>
+
+  <!-- Writing -->
+  <div class="tools-category">
+    <div class="tools-cat-head">
+      <div class="tools-cat-icon ic-wine">✍️</div>
+      <div class="tools-cat-name">Writing &amp; Copy</div>
+    </div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <div class="tool-name">Claude</div>
+        <div class="tool-desc">Best for strategy, long-form content, email drafts, and nuanced copy. Handles context well across a conversation — great for thinking through problems, not just generating output.</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">ChatGPT</div>
+        <div class="tool-desc">Strong for quick ideation, brainstorming variations, and social captions. A solid starting point if you're new to working with AI.</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Jasper</div>
+        <div class="tool-desc">Built specifically for marketing copy. Good for teams who want templates and brand voice controls baked into their workflow from day one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visuals -->
+  <div class="tools-category">
+    <div class="tools-cat-head">
+      <div class="tools-cat-icon ic-sand">🎨</div>
+      <div class="tools-cat-name">Visuals &amp; Design</div>
+    </div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <div class="tool-name">Canva AI</div>
+        <div class="tool-desc">If you're already in Canva, start here. Text-to-image, background removal, and AI copy suggestions — all built into a tool you already know.</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Adobe Firefly</div>
+        <div class="tool-desc">Best for brand-safe image generation. Trained on licensed content, which matters if intellectual property is a concern for your team.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research -->
+  <div class="tools-category">
+    <div class="tools-cat-head">
+      <div class="tools-cat-icon ic-teal">🔍</div>
+      <div class="tools-cat-name">Research &amp; Analysis</div>
+    </div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <div class="tool-name">Perplexity AI</div>
+        <div class="tool-desc">AI-powered search with cited sources. Replaces hours of manual research for market trends, competitive intel, and background reading.</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Notion AI</div>
+        <div class="tool-desc">Useful if your team already lives in Notion. Summarise meeting notes, extract action items, and draft briefs — without switching tools.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Automation -->
+  <div class="tools-category">
+    <div class="tools-cat-head">
+      <div class="tools-cat-icon ic-ink">⚙️</div>
+      <div class="tools-cat-name">Automation &amp; Workflows</div>
+    </div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <div class="tool-name">HubSpot AI</div>
+        <div class="tool-desc">If you're already on HubSpot, explore the built-in AI features for email subject lines, content suggestions, and workflow branching — they're underused by most teams.</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Zapier + AI</div>
+        <div class="tool-desc">Connect your existing tools and add AI steps into automations — no code required. A fast way to test AI-assisted workflows without rebuilding anything.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHECKLIST ── -->
+<div class="section section--dark">
+  <div class="t-label t-label--light">Step 3</div>
+  <h2 class="t-display t-display--lg t-display--on-dark">Your 5-Step<br><em>Starter Checklist.</em></h2>
+  <p style="margin-top:1rem;font-size:.88rem;line-height:1.75;color:rgba(243,237,227,0.72);max-width:480px;">
+    Use this to get from zero to actually using AI in your work within a week.
+  </p>
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-num">01</div>
+      <div class="check-body">
+        <div class="check-title">Pick one tool from the writing category</div>
+        <div class="check-text">Use it for your next piece of copy. Don't evaluate yet — just use it. Judgment comes after experience.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">02</div>
+      <div class="check-body">
+        <div class="check-title">Identify your most repetitive task</div>
+        <div class="check-text">Write it down. The single most time-consuming, low-thinking task in your current role. That's your first automation target.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">03</div>
+      <div class="check-body">
+        <div class="check-title">Ask Claude or ChatGPT to help with that task</div>
+        <div class="check-text">Note what works and what doesn't. The friction points are telling — they show you where you still need to be in the loop.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">04</div>
+      <div class="check-body">
+        <div class="check-title">Try the same prompt three different ways</div>
+        <div class="check-text">See how output changes when you add more context, change the framing, or specify the audience. This is how you learn to prompt well.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">05</div>
+      <div class="check-body">
+        <div class="check-title">Share what you learned with one colleague</div>
+        <div class="check-text">Teaching it cements it. Even a quick Slack message — "I tried this and here's what happened" — builds your credibility as someone who's actually doing the work.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-text">
+      The marketers who thrive with AI aren't the ones who know <em>the most tools.</em><br>
+      They're the ones who got started, stayed curious, and kept asking better questions.
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ROZ ── -->
+<div class="section section--cream3">
+  <div class="t-label t-label--dark">About</div>
+  <h2 class="t-display t-display--md t-display--on-light" style="margin-bottom:1.25rem;">Lifecycle Works <em>by Roz</em></h2>
+  <p style="font-size:.88rem;line-height:1.85;color:var(--txt-mid);max-width:520px;">
+    Roz is a B2B lifecycle marketing and CRM ops consultant helping founders and marketing leaders
+    at growing SaaS companies build the systems that turn leads into revenue — without the guesswork.
+  </p>
+  <p style="margin-top:.85rem;font-size:.88rem;line-height:1.85;color:var(--txt-mid);max-width:520px;">
+    If you're ready to build your lifecycle flows, lead capture systems, or CRM automation,
+    she'd love to talk through what you need.
+  </p>
+  <div style="margin-top:1.75rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+    <div style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wine-mid);border:1px solid rgba(196,98,45,.25);padding:.4rem 1rem;">
+      lifecycleworks.com
+    </div>
+    <div style="font-size:.68rem;color:var(--txt-soft);letter-spacing:.05em;">
+      US · UK · Canada · Singapore · Australia
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="guide-footer">
+  <div class="footer-sig">ROZ <span>GONZALEZ</span> · Lifecycle Works</div>
+  <div class="footer-url">lifecycleworks.com</div>
+</div>
+
+</body>
+</html>
