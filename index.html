@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Blog — Lifecycle Works by Roz</title>
+<title>Blog â Lifecycle Works by Roz</title>
 <meta name="description" content="Articles and guides on B2B lifecycle marketing, CRM ops, and marketing automation by Roz Gonzalez."/>
 <link href="https://fonts.cdnfonts.com/css/tex-gyre-termes" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/style.css"/>
 <style>
 
-/* ── HERO ── */
+/* ââ HERO ââ */
 .blog-hero {
   background:var(--ink);
   padding:4rem 3rem 3.5rem;
@@ -38,7 +38,7 @@
 }
 .blog-hero-sub strong { color:var(--txt-light); font-weight:400; }
 
-/* ── FILTER BAR ── */
+/* ââ FILTER BAR ââ */
 .filter-bar {
   background:var(--ink2);
   border-bottom:1px solid var(--bdr-dark);
@@ -67,7 +67,7 @@
   margin-left:auto;
 }
 
-/* ── POST GRID ── */
+/* ââ POST GRID ââ */
 .posts-section {
   padding:3rem 3rem 4rem;
   background:var(--cream);
@@ -79,7 +79,7 @@
   margin-top:2rem;
 }
 
-/* ── POST CARD ── */
+/* ââ POST CARD ââ */
 .post-card {
   background:white;
   border:1px solid var(--bdr-light);
@@ -138,7 +138,7 @@
   text-transform:uppercase; color:var(--txt-soft);
 }
 
-/* ── FEATURED POST (full width) ── */
+/* ââ FEATURED POST (full width) ââ */
 .post-card--featured {
   grid-column:1/-1;
   display:grid; grid-template-columns:1fr 1fr;
@@ -148,7 +148,7 @@
 .post-card--featured .card-footer { border-top:none; border-left:1px solid var(--bdr-light); padding:2.25rem 2.5rem; flex-direction:column; align-items:flex-start; justify-content:flex-end; background:var(--cream2); }
 .post-card--featured .card-excerpt { max-width:420px; }
 
-/* ── EMPTY STATE ── */
+/* ââ EMPTY STATE ââ */
 .empty-state {
   grid-column:1/-1;
   text-align:center; padding:4rem 2rem;
@@ -158,7 +158,7 @@
 }
 .empty-state.visible { display:block; }
 
-/* ── SECTION DIVIDER ── */
+/* ââ SECTION DIVIDER ââ */
 .section-rule {
   display:flex; align-items:center; gap:1rem;
   margin-bottom:1.75rem;
@@ -173,7 +173,7 @@
   flex:1; height:1px; background:var(--bdr-light);
 }
 
-/* ── MOBILE ── */
+/* ââ MOBILE ââ */
 @media(max-width:640px){
   .blog-hero { padding:3rem 1.25rem 2.5rem; }
   .filter-bar { padding:.75rem 1.25rem; gap:.5rem; top:54px; overflow-x:auto; }
@@ -196,7 +196,7 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- ââ NAV ââ -->
 <nav class="site-nav">
   <a class="nav-logo" href="index.html">LIFECYCLE <span>WORKS</span> <em>Blog</em></a>
   <ul class="nav-links">
@@ -204,10 +204,10 @@
     <li><a href="#">Articles</a></li>
     <li><a href="#">Guides</a></li>
   </ul>
-  <a href="https://lifecycleworks.com" class="nav-cta" target="_blank">Home →</a>
+  <a href="https://lifecycleworks.com" class="nav-cta" target="_blank">Home â</a>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ââ HERO ââ -->
 <div class="blog-hero">
   <div class="blog-hero-eyebrow">
     <span class="t-label t-label--light">Lifecycle Works by Roz</span>
@@ -216,19 +216,19 @@
     B2B Marketing<br><em>That Actually Works.</em>
   </h1>
   <p class="blog-hero-sub">
-    Practical articles and guides on <strong>lifecycle marketing, CRM ops, and marketing automation</strong> — written by a practitioner, for practitioners.
+    Practical articles and guides on <strong>lifecycle marketing, CRM ops, and marketing automation</strong> â written by a practitioner, for practitioners.
   </p>
 </div>
 
-<!-- ── FILTER BAR ── -->
+<!-- ââ FILTER BAR ââ -->
 <div class="filter-bar">
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="article">Articles</button>
   <button class="filter-btn" data-filter="guide">Guides</button>
-  <span class="filter-count" id="post-count">2 posts</span>
+  <span class="filter-count" id="post-count">3 posts</span>
 </div>
 
-<!-- ── POSTS ── -->
+<!-- ââ POSTS ââ -->
 <div class="posts-section">
   <div class="section-rule">
     <span class="section-rule-label">Latest</span>
@@ -237,8 +237,24 @@
 
   <div class="posts-grid" id="posts-grid">
 
+    <!-- Your Email List Isn't the Problem. Your Segmentation Is. -->
+    <a class="post-card post-card--featured" href="articles/your-email-list-isnt-the-problem-your-segmentation-is.html" data-type="article">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="tag tag--article">Article</span>
+          <span class="card-date">April 2026</span>
+        </div>
+        <div class="card-title">Your Email List Isn't the Problem. Your Segmentation Is.</div>
+        <p class="card-excerpt">Most email marketing problems aren't email problems — they're segmentation problems. Here's how AI helps you clean up your CRM, build smarter segments, and finally send the right message to the right person.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-read">Read Article →</span>
+        <span class="card-read-time">5 min read</span>
+      </div>
+    </a>
+
     <!-- FEATURED: Article 1 -->
-    <a class="post-card post-card--featured" href="articles/will-ai-replace-marketers.html" data-type="article">
+    <a class="post-card post-card" href="articles/will-ai-replace-marketers.html" data-type="article">
       <div class="card-body">
         <div class="card-meta">
           <span class="tag tag--article">Article</span>
@@ -248,7 +264,7 @@
         <p class="card-excerpt">Every few years, something shows up that's supposed to kill marketing as a profession. This time, people actually believe it. They're not entirely wrong. But they're not asking the right question either.</p>
       </div>
       <div class="card-footer">
-        <span class="card-read">Read Article →</span>
+        <span class="card-read">Read Article â</span>
         <span class="card-read-time">4 min read</span>
       </div>
     </a>
@@ -264,7 +280,7 @@
         <p class="card-excerpt">Where to start, what to actually use, and how to build confidence without the overwhelm. A practical framework plus a 5-step checklist to get moving this week.</p>
       </div>
       <div class="card-footer">
-        <span class="card-read">Read Guide →</span>
+        <span class="card-read">Read Guide â</span>
         <span class="card-read-time">6 min read</span>
       </div>
     </a>
@@ -275,9 +291,9 @@
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- ââ FOOTER ââ -->
 <footer class="site-footer">
-  <div class="footer-sig">LIFECYCLE <span>WORKS</span> · By Roz Gonzalez</div>
+  <div class="footer-sig">LIFECYCLE <span>WORKS</span> Â· By Roz Gonzalez</div>
   <ul class="footer-links">
     <li><a href="https://lifecycleworks.com" target="_blank">Home</a></li>
     <li><a href="https://linkedin.com/in/rozzgonzalez" target="_blank">LinkedIn</a></li>
@@ -286,7 +302,7 @@
 </footer>
 
 <script>
-// ── Filter logic ──
+// ââ Filter logic ââ
 const btns = document.querySelectorAll('.filter-btn');
 const cards = document.querySelectorAll('.post-card');
 const countEl = document.getElementById('post-count');
